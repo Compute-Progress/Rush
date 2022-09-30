@@ -13,12 +13,19 @@ void init(t_transform *transform)
 	SDLX_InputMap(SDL_SCANCODE_RIGHT,	1, SDLX_RIGHT,	1, -1);
 
 	display = SDLX_Display_Get();
+
+	memset(transform, 0, sizeof(t_transform));
+
 	transform->treshold = MAXTHRESHOLD;
 	transform->prevX = -1;
 	transform->prevY = -1;
 	transform->canDraw = 1;
 	transform->canvW = WINDOW_W;
 	transform->canvH = WINDOW_H;
+
+	transform->visualizer.currentXDivide = 1;
+	transform->visualizer.currentYDivide = 1;
+	transform->visualizer.currentPos = (STEPX * transform->visualizer.currentXDivide) + (HOUGHSPACE_W * STEPY * transform->visualizer.currentYDivide);
 
 	transform->drawSpace = SDL_CreateTexture(
 			SDLX_Display_Get()->renderer,

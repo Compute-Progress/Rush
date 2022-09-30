@@ -17,7 +17,7 @@ void mainLoop(void)
 	else
 		compute(&transform);
 
-	// renderUI(transform);
+	renderUI(&transform);
 	SDL_RenderPresent(display->renderer);
 }
 

@@ -25,9 +25,9 @@ int scaleNumber_toRange(int input, SDL_Point fromRange, SDL_Point toRange)
 void resetVisualizer(t_transform *transform)
 {
 	transform->visualizer.shouldUpdate = 0;
-	transform->visualizer.currentXDivide = 0;
-	transform->visualizer.currentYDivide = 0;
-	transform->visualizer.nextIndex = 0;
+	transform->visualizer.currentXDivide = 1;
+	transform->visualizer.currentYDivide = 1;
+	transform->visualizer.currentPos = (STEPX * transform->visualizer.currentXDivide) + (HOUGHSPACE_W * STEPY * transform->visualizer.currentYDivide);
 }
 
 void resetTransform(t_transform *transform)

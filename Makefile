@@ -54,14 +54,14 @@ wasm:
 
 react:
 	emcc -O2 $(SRCS) $(INCLUDES) \
+	-D EMCC \
+	--preload-file assets/ \
 	-s USE_SDL=2 \
 	-s USE_SDL_TTF=2 \
-	-s WASM=0 \
 	-s MODULARIZE=1 \
 	-s ENVIRONMENT=web \
 	-s ALLOW_MEMORY_GROWTH=1 \
-	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
-	--preload-file srcs/SDLX/default.ttf \
+	-s EXPORT_NAME="$(NAME)" \
 	-o draw.js
 
 $(BIN_DIR):

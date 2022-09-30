@@ -117,7 +117,7 @@ void SDLX_RenderMessage_Aligned(SDLX_Display *display, int x_align, int y_align,
 
 	if (!display->defaultFont)
 	{
-		SDL_Log("No font");
+		// SDL_Log("No font");
 		return ;
 	}
 	surf = TTF_RenderText_Solid(display->defaultFont, text, color);
@@ -141,6 +141,7 @@ void SDLX_RenderMessage_Aligned(SDLX_Display *display, int x_align, int y_align,
 	{
 		SDL_RenderCopy(display->renderer,tex, NULL, &dst);
 		SDL_FreeSurface(surf);
+		SDL_DestroyTexture(tex);
 	}
 }
 
@@ -155,5 +156,6 @@ void SDLX_RenderMessage(SDLX_Display *display, SDL_Rect *dst, SDL_Color color, c
 	{
 		SDL_RenderCopy(display->renderer, tex, NULL, dst);
 		SDL_FreeSurface(surf);
+		SDL_DestroyTexture(tex);
 	}
 }

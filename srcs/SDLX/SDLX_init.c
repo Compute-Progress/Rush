@@ -36,15 +36,17 @@ void	        SDLX_Start(char *name, int x, int y, int h, int w, int flags)
     if (!TTF_WasInit() && !TTF_Init())
     {
         SDL_Log("TTF initialized");
-        display.defaultFont = TTF_OpenFont(DEFAULT_FONT_PATH, DEFAULT_FONT_SIZE);
+        display.defaultFont = TTF_OpenFont("assets/default.ttf", DEFAULT_FONT_SIZE);
+		if (!display.defaultFont)
+			SDL_Log("Waning: No default font found.");
     }
-    
+
 	SDLX_Display_Set(name, x, y, h, w, flags);
     SDLX_RenderQueues_Init();
 	atexit(SDLX_Close);
 }
 
-SDLX_Display	*SDLX_Display_Get(void) 
+SDLX_Display	*SDLX_Display_Get(void)
 {
     if (!display.renderer)
         return NULL;

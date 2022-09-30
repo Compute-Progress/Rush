@@ -19,6 +19,9 @@
 # define DIVIDE_Y 6
 # define SEARCHRANGE 50
 
+# define STEPX HOUGHSPACE_W / DIVIDE_X
+# define STEPY HOUGHSPACE_H / DIVIDE_Y
+
 #define MODE_COMPUTE 0
 #define MODE_VISUALIZE 1
 
@@ -29,14 +32,18 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-# define MAXTHRESHOLD 40
+#ifdef __EMSCRIPTEN__
+# define MAXTHRESHOLD 7
+#else
+# define MAXTHRESHOLD 35
+#endif
 
 typedef struct  s_visualizer
 {
     int currentXDivide;
     int currentYDivide;
     int shouldUpdate;
-    int nextIndex;
+    int currentPos;
 }               t_visualizer;
 typedef struct s_transform
 {

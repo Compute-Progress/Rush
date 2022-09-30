@@ -20,6 +20,14 @@ void computeHough( int x, int y, int *arr, int w, int h)
     }
 }
 
+int getVal(int *houghSpace, int pos)
+{
+	if (pos >= 0 && pos < HOUGHSPACE_W * HOUGHSPACE_H)
+		return houghSpace[pos];
+
+	return -1;
+}
+
 int getMax_inRange(int *houghSpace, int pos)
 {
     int row;
@@ -28,19 +36,26 @@ int getMax_inRange(int *houghSpace, int pos)
     int tryPos;
 
     maxPos = pos;
-    col = -SEARCHRANGE;
-    while (col <= SEARCHRANGE)
+    col = 0;
+    while (col < SEARCHRANGE)
     {
-        row = -SEARCHRANGE;
-        while (row <= SEARCHRANGE)
+        row = 0;
+        while (row < SEARCHRANGE)
         {
             tryPos = pos + ((row * HOUGHSPACE_W) + col);
-            if (
-                tryPos >= 0 &&
-                tryPos < HOUGHSPACE_W * HOUGHSPACE_H &&
-                    (houghSpace[tryPos] >= houghSpace[maxPos])
-            )
-                maxPos = tryPos;
+
+			if (getVal(houghSpace, pos + ((row * HOUGHSPACE_W) + col)) > houghSpace[maxPos])
+						  maxPos = pos + ((row * HOUGHSPACE_W) + col);
+
+			if (getVal(houghSpace, pos - ((row * HOUGHSPACE_W) + col)) > houghSpace[maxPos])
+						  maxPos = pos - ((row * HOUGHSPACE_W) + col);
+
+			if (getVal(houghSpace, pos + ((row * HOUGHSPACE_W) - col)) > houghSpace[maxPos])
+						  maxPos = pos + ((row * HOUGHSPACE_W) - col);
+
+			if (getVal(houghSpace, pos - ((row * HOUGHSPACE_W) - col)) > houghSpace[maxPos])
+						  maxPos = pos - ((row * HOUGHSPACE_W) - col);
+
             row++;
         }
         col++;
